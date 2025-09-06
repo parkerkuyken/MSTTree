@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="csx55.overlay.wireformats.TaskInitiateTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.004">
+  <properties/>
+  <testcase name="testZeroRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.001"/>
+  <testcase name="testEventFactoryIntegration()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testConstructorAndGetters()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.001"/>
+  <testcase name="testShortDataThrowsException()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testMaxIntRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testMinIntRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testNullDataThrowsException()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.001"/>
+  <testcase name="testDataIntegrity()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testLargeNumberOfRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testNegativeRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testMultipleSerializationRounds()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <testcase name="testSingleRound()" classname="csx55.overlay.wireformats.TaskInitiateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

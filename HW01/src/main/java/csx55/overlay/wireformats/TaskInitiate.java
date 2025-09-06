@@ -16,6 +16,9 @@ public class TaskInitiate implements Event {
     
 
     public TaskInitiate(byte[] data) throws IOException {
+        if (data == null) {
+            throw new IOException("Data cannot be null");
+        }
         unmarshallBytes(data);
     }
   
@@ -24,10 +27,7 @@ public class TaskInitiate implements Event {
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         DataOutputStream dout = new DataOutputStream(baOutputStream);
         
-        // 1. Write fixed message type
         dout.writeInt(Protocol.TASK_INITIATE);
-        
-        // 2. Write rounds
         dout.writeInt(rounds);
         
         dout.flush();
@@ -38,17 +38,15 @@ public class TaskInitiate implements Event {
         return data;
     }
     
-    // UNMARSHALLING: Convert byte array to object
     private void unmarshallBytes(byte[] data) throws IOException {
         ByteArrayInputStream baInputStream = new ByteArrayInputStream(data);
         DataInputStream din = new DataInputStream(baInputStream);
     
         int messageType = din.readInt();
         if (messageType != Protocol.TASK_INITIATE) {
-            throw new IOException("error" + messageType);
+            throw new IOException("ERROR: " + messageType);
         }
-        
-        // 2. Read rounds
+
         this.rounds = din.readInt();
         
         din.close();

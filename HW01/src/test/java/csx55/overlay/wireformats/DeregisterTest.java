@@ -3,8 +3,7 @@ package csx55.overlay.wireformats;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+
 
 public class DeregisterTest {
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="csx55.overlay.wireformats.TaskSummaryResponseTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.003">
+  <properties/>
+  <testcase name="testLargeValues()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.001"/>
+  <testcase name="testEventFactoryIntegration()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.001"/>
+  <testcase name="testShortData()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <testcase name="testNullData()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <testcase name="testGetters()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <testcase name="testEdgeCaseValues()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <testcase name="testNegativeValues()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <testcase name="testMarshallingUnmarshalling()" classname="csx55.overlay.wireformats.TaskSummaryResponseTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

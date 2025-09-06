@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="csx55.overlay.wireformats.RegisterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-09-06T20:58:41" hostname="eel" time="0.002">
+<testsuite name="csx55.overlay.wireformats.RegisterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.002">
   <properties/>
-  <testcase name="testRegisterResponseMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.RegisterTest" time="0.001"/>
+  <testcase name="testRegisterResponseMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
   <testcase name="testEdgeCaseIPAddresses()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
   <testcase name="testEdgeCasePortNumbers()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
-  <testcase name="testGettersForResponse()" classname="csx55.overlay.wireformats.RegisterTest" time="0.001"/>
+  <testcase name="testGettersForResponse()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
   <testcase name="testRegisterRequestMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
   <testcase name="testGettersForRequest()" classname="csx55.overlay.wireformats.RegisterTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

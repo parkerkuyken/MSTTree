@@ -20,21 +20,17 @@ public class TaskComplete implements Event {
         unmarshallBytes(data);
     }
 
-    // Marshalling Method
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         DataOutputStream dout = new DataOutputStream(baOutputStream);
         
-        // 1. Write fixed message type
         dout.writeInt(Protocol.TASK_COMPLETE);
         
-        // 2. Write IP address (length + bytes)
         byte[] ipBytes = ipAddress.getBytes();
         dout.writeInt(ipBytes.length);
         dout.write(ipBytes);
          
-        // 3. Write port number
         dout.writeInt(portNumber);
         
         dout.flush();
@@ -49,19 +45,16 @@ public class TaskComplete implements Event {
         ByteArrayInputStream baInputStream = new ByteArrayInputStream(data);
         DataInputStream din = new DataInputStream(baInputStream);
         
-        // 1. Read and validate message type
         int messageType = din.readInt();
         if (messageType != Protocol.TASK_COMPLETE) {
             throw new IOException("Invalid message type for TaskComplete: " + messageType);
         }
 
-        // 2. Read IP address
         int ipLength = din.readInt();
         byte[] ipBytes = new byte[ipLength];
         din.readFully(ipBytes);
         this.ipAddress = new String(ipBytes);
         
-        // 3. Read port number
         this.portNumber = din.readInt();
 
         din.close();
@@ -70,15 +63,19 @@ public class TaskComplete implements Event {
 
     @Override
     public int getType() {
-        return Protocol.TASK_COMPLETE; // Always returns fixed value
+        return Protocol.TASK_COMPLETE; 
     }
 
-    // Getters
-    public String getIpAddress() { return ipAddress; }
-    public int getPortNumber() { return portNumber; }
+
+    public String getIpAddress(){
+         return ipAddress; 
+        }
+    public int getPortNumber(){
+         return portNumber; 
+        }
     
     @Override
-    public String toString() {
+    public String toString(){
         return "TaskComplete[ip=" + ipAddress + ", port=" + portNumber + "]";
     }
 }

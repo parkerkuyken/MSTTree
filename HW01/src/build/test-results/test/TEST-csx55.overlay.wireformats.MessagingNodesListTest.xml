@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="csx55.overlay.wireformats.MessagingNodesListTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.004">
+  <properties/>
+  <testcase name="testMessagingNodeEquality()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.001"/>
+  <testcase name="testEventFactoryIntegration()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.001"/>
+  <testcase name="testLargeNumberOfPeers()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testFromStringConstructor()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testEdgeCasePortNumbers()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.001"/>
+  <testcase name="testEmptyPeerList()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testSinglePeerMarshallingUnmarshalling()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testMessagingNodeGetters()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testMultiplePeersMarshallingUnmarshalling()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testInvalidStringConstructor()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <testcase name="testToStringMethod()" classname="csx55.overlay.wireformats.MessagingNodesListTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

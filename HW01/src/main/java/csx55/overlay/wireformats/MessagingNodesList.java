@@ -1,6 +1,9 @@
 package csx55.overlay.wireformats;
 
+import csx55.overlay.node.MessagingNode;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,16 +13,13 @@ public class MessagingNodesList implements Event {
 
     private int messageType = Protocol.MESSAGING_NODES_LIST;
     private int numberOfPeers;
-    private List<NodeInfo> peerNodes;
+    private List<MessagingNode> peerNodes;
 
-    public MessagingNodesList(int numberOfPeers, List<NodeInfo> peerNodes) {
-        this.numberOfPeers = numberOfPeers;
+    public MessagingNodesList(List<MessagingNode> peerNodes) {
+        this.numberOfPeers = peerNodes.size();  
         this.peerNodes = peerNodes;
     }
 
-    public int getType(){
-        return Protocol.MESSAGING_NODES_LIST;
-    }
     public MessagingNodesList(byte[] data) throws IOException {
         unmarshallBytes(data);
     }
@@ -33,11 +33,12 @@ public class MessagingNodesList implements Event {
         dout.writeInt(numberOfPeers);
 
         // Write each peer node info
-        for (NodeInfo node : peerNodes) {
-            byte[] ipBytes = node.getIp().getBytes();
-            dout.writeInt(ipBytes.length);
-            dout.write(ipBytes);
-            dout.writeInt(node.getPort());
+        for (MessagingNode node : peerNodes) {
+            // Use the same serialization format as OverlayMessage
+            String nodeAddress = node.toString(); // Assumes toString() returns "ip:port"
+            byte[] nodeBytes = nodeAddress.getBytes();
+            dout.writeInt(nodeBytes.length);
+            dout.write(nodeBytes);
         }
 
         dout.flush();
@@ -49,48 +50,43 @@ public class MessagingNodesList implements Event {
     }
 
     private void unmarshallBytes(byte[] data) throws IOException {
-        java.io.ByteArrayInputStream baInputStream = new java.io.ByteArrayInputStream(data);
-        java.io.DataInputStream din = new java.io.DataInputStream(baInputStream);
+        ByteArrayInputStream baInputStream = new ByteArrayInputStream(data);
+        DataInputStream din = new DataInputStream(baInputStream);
 
         messageType = din.readInt();
         numberOfPeers = din.readInt();
 
         peerNodes = new ArrayList<>();
         for (int i = 0; i < numberOfPeers; i++) {
-            int ipLength = din.readInt();
-            byte[] ipBytes = new byte[ipLength];
-            din.readFully(ipBytes);
-            String ip = new String(ipBytes);
-            int port = din.readInt();
-            peerNodes.add(new NodeInfo(ip, port));
+            int addressLength = din.readInt();
+            byte[] addressBytes = new byte[addressLength];
+            din.readFully(addressBytes);
+            String address = new String(addressBytes);
+            
+            // Create MessagingNode from "ip:port" string
+            MessagingNode node = new MessagingNode(address);
+            peerNodes.add(node);
         }
 
         din.close();
         baInputStream.close();
     }
 
-    // Getters
-    public int getMessageType() { return messageType; }
+    @Override
+    public int getType() {
+        return Protocol.MESSAGING_NODES_LIST;
+    }
+
     public int getNumberOfPeers() { return numberOfPeers; }
-    public List<NodeInfo> getPeerNodes() { return peerNodes; }
+    public List<MessagingNode> getPeerNodes() { return peerNodes; }
 
     @Override
     public String toString() {
-        return "MessagingNodesList - Peers: " + numberOfPeers;
-    }
-
-    // Inner class to represent node information
-    public static class NodeInfo {
-        private String ip;
-        private int port;
-
-        public NodeInfo(String ip, int port) {
-            this.ip = ip;
-            this.port = port;
+        StringBuilder sb = new StringBuilder();
+        sb.append("MessagingNodesList[peers=").append(numberOfPeers).append("]:\n");
+        for (MessagingNode node : peerNodes) {
+            sb.append("  ").append(node.toString()).append("\n");
         }
-
-        public String getIp() { return ip; }
-        public int getPort() { return port; }
-
+        return sb.toString();
     }
 }

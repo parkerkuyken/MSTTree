@@ -1,5 +1,6 @@
 package csx55.overlay.wireformats;
 
+import csx55.overlay.node.MessagingNode;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -10,40 +11,35 @@ import java.util.List;
 
 public class LinkWeights implements Event {
     
-    
     private List<LinkInfo> links;
     
-    // Constructor for creating new LinkWeights message
     public LinkWeights(List<LinkInfo> links) {
         this.links = links;
     }
     
-    // Constructor for unmarshalling
     public LinkWeights(byte[] data) throws IOException {
         this.links = new ArrayList<>();
         unmarshallBytes(data);
     }
     
-    //Marshing Method 
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         DataOutputStream dout = new DataOutputStream(baOutputStream);
         
-       
         dout.writeInt(Protocol.LINK_WEIGHTS);
-    
         dout.writeInt(links.size());
         
-        // 3. Write each link info
         for (LinkInfo link : links) {
-           
-            byte[] nodeABytes = link.getNodeA().getBytes();
+            // Write nodeA (as "ip:port" string)
+            String nodeAAddress = link.getNodeA().toString();
+            byte[] nodeABytes = nodeAAddress.getBytes();
             dout.writeInt(nodeABytes.length);
             dout.write(nodeABytes);
             
-            // Write nodeB (ip:port)
-            byte[] nodeBBytes = link.getNodeB().getBytes();
+            // Write nodeB (as "ip:port" string)
+            String nodeBAddress = link.getNodeB().toString();
+            byte[] nodeBBytes = nodeBAddress.getBytes();
             dout.writeInt(nodeBBytes.length);
             dout.write(nodeBBytes);
             
@@ -58,32 +54,32 @@ public class LinkWeights implements Event {
         return data;
     }
     
-    // UNMARSHALLING: Convert byte array to object
     private void unmarshallBytes(byte[] data) throws IOException {
         ByteArrayInputStream baInputStream = new ByteArrayInputStream(data);
         DataInputStream din = new DataInputStream(baInputStream);
         
-        // 1. Read and verify message type
         int messageType = din.readInt();
         if (messageType != Protocol.LINK_WEIGHTS) {
             throw new IOException("Invalid message type for LinkWeights");
         }
         
-        // 2. Read number of links
         int numLinks = din.readInt();
         
-        // 3. Read each link info
         for (int i = 0; i < numLinks; i++) {
+ 
             int nodeALength = din.readInt();
             byte[] nodeABytes = new byte[nodeALength];
             din.readFully(nodeABytes);
-            String nodeA = new String(nodeABytes);
+            String nodeAAddress = new String(nodeABytes);
+            MessagingNode nodeA = new MessagingNode(nodeAAddress);
             
-
+         
             int nodeBLength = din.readInt();
             byte[] nodeBBytes = new byte[nodeBLength];
             din.readFully(nodeBBytes);
-            String nodeB = new String(nodeBBytes);
+            String nodeBAddress = new String(nodeBBytes);
+            MessagingNode nodeB = new MessagingNode(nodeBAddress);
+    
             int weight = din.readInt();
             
             links.add(new LinkInfo(nodeA, nodeB, weight));
@@ -117,23 +113,38 @@ public class LinkWeights implements Event {
     }
 
     public static class LinkInfo {
-        private String nodeA;
-        private String nodeB;
+        private MessagingNode nodeA;
+        private MessagingNode nodeB;
         private int weight;
         
-        public LinkInfo(String nodeA, String nodeB, int weight) {
+        public LinkInfo(MessagingNode nodeA, MessagingNode nodeB, int weight) {
             this.nodeA = nodeA;
             this.nodeB = nodeB;
             this.weight = weight;
         }
         
-        public String getNodeA() { return nodeA; }
-        public String getNodeB() { return nodeB; }
+        public MessagingNode getNodeA() { return nodeA; }
+        public MessagingNode getNodeB() { return nodeB; }
         public int getWeight() { return weight; }
    
         @Override
-    public String toString() {
-        return nodeA + " " + nodeB + " " + weight;
+        public String toString() {
+            return nodeA.toString() + " " + nodeB.toString() + " " + weight;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof LinkInfo)) return false;
+            LinkInfo other = (LinkInfo) obj;
+            return (nodeA.equals(other.nodeA) && nodeB.equals(other.nodeB)) ||
+                   (nodeA.equals(other.nodeB) && nodeB.equals(other.nodeA));
+        }
+        
+        @Override
+        public int hashCode() {
+            // Consistent hash code for bidirectional links
+            return nodeA.hashCode() + nodeB.hashCode();
+        }
     }
 }
-    }

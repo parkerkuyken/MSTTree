@@ -1,8 +1,7 @@
 package csx55.overlay.wireformats;
 
 public interface Protocol {
-    
-    // Message types
+
     int REGISTER_REQUEST = 0;
     int REGISTER_RESPONSE = 1;
     int DEREGISTER_REQUEST = 2;
@@ -12,6 +11,7 @@ public interface Protocol {
     int TASK_COMPLETE = 6;
     int PULL_TRAFFIC_SUMMARY = 7;
     int TRAFFIC_SUMMARY = 8;
+    int OVERLAY_MESSAGE = 9;
     
     // Status codes
     byte SUCCESS = 0;

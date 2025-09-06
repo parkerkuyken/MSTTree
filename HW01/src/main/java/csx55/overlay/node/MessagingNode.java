@@ -1,57 +1,80 @@
-// package csx55.overlay.node;
+package csx55.overlay.node;
 
-// import java.io.IOException;
-// import java.net.InetAddress;
-// import java.net.ServerSocket;
-// import java.net.Socket;
+public class MessagingNode {
+    private final String ip;
+    private final int port;
 
-// public class MessagingNode {
+    // Primary constructor - explicit IP and port
+    public MessagingNode(String ip, int port) {
+        if (ip == null || ip.trim().isEmpty()) {
+            throw new IllegalArgumentException("IP cannot be null or empty");
+        }
+        if (port < 0 || port > 65535) {
+            throw new IllegalArgumentException("Port must be between 0 and 65535");
+        }
+        this.ip = ip.trim();
+        this.port = port;
+    }
 
-//     private String ipAddress;
-//     private int portNumber;
+    // Secondary constructor - from "ip:port" string
+    public MessagingNode(String ipPortString) {
+        if (ipPortString == null || !ipPortString.contains(":")) {
+            throw new IllegalArgumentException("Invalid IP:port format: " + ipPortString);
+        }
+        
+        String[] parts = ipPortString.split(":", 2); // Split into max 2 parts
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid IP:port format: " + ipPortString);
+        }
+        
+        this.ip = parts[0].trim();
+        try {
+            this.port = Integer.parseInt(parts[1].trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid port number: " + parts[1], e);
+        }
+        
+        // Validate after parsing
+        if (this.ip.isEmpty()) {
+            throw new IllegalArgumentException("IP cannot be empty");
+        }
+        if (this.port < 0 || this.port > 65535) {
+            throw new IllegalArgumentException("Port must be between 0 and 65535");
+        }
+    }
 
-//     public MessagingNode(String ipAddress, int portNumber) {
-//         this.ipAddress = ipAddress;
-//         this.portNumber = portNumber;
-//     }
+    // Renamed to follow Java naming conventions (camelCase)
+    public String serialize() {
+        return ip + ":" + port;
+    }
+    
+    public String getIp() { return ip; }
+    public int getPort() { return port; }
+    
+    @Override
+    public String toString() {
+        return serialize(); // Use the same format
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof MessagingNode)) return false;
+        MessagingNode other = (MessagingNode) obj;
+        return ip.equals(other.ip) && port == other.port;
+    }
+    
+    @Override
+    public int hashCode() {
+        return ip.hashCode() * 31 + port;
+    }
 
-//     // Connect to the Registry
-//     public void connectToRegistry(String registryIp, int registryPort) {
-//         try {
-//             Socket registrySocket = new Socket(registryIp, registryPort);
-//             System.out.println("Connected to Registry at " + registryIp + ":" + registryPort);
-//             registrySocket.close();
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
-//     public static void main(String[] args) {
-//         if (args.length != 2) {
-//             System.out.println("Need Target IP and Port");
-//             return;
-//         }
-
-//         String registryIp = args[0];
-//         int registryPort = Integer.parseInt(args[1]);
-
-//         try {
-//             InetAddress localHost = InetAddress.getLocalHost();
-//             String localIp = localHost.getHostAddress();
-
-//             ServerSocket serverSocket = new ServerSocket(0);
-//             int localPort = serverSocket.getLocalPort();
-
-//             System.out.println("Node running at " + localIp + ":" + localPort);
-
-//             MessagingNode node = new MessagingNode(localIp, localPort);
-//             node.connectToRegistry(registryIp, registryPort);
-
-//             // Keep the server socket open for future use
-//             // serverSocket.accept(); or run in a thread
-
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
-// }
+    // Optional: Add some helper methods
+    public boolean isLocalhost() {
+        return "localhost".equals(ip) || "127.0.0.1".equals(ip) || "::1".equals(ip);
+    }
+    
+    public boolean isValid() {
+        return ip != null && !ip.isEmpty() && port >= 0 && port <= 65535;
+    }
+}

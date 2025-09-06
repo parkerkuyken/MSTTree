@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="csx55.overlay.wireformats.TaskCompleteTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.005">
+  <properties/>
+  <testcase name="testMarshallingAndUnmarshallingWithLongIP()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.001"/>
+  <testcase name="testInvalidData()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testSpecialIPAddresses()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testEventFactoryIntegration()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.001"/>
+  <testcase name="testEdgeCasePortNumbers()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testToString()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testConstructorAndGetters()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testDataIntegrity()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testMultipleSerializationRounds()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testWrongMessageType()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testMarshallingAndUnmarshallingWithLocalhost()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.001"/>
+  <testcase name="testMarshallingAndUnmarshallingWithDifferentIP()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <testcase name="testMarshallingAndUnmarshallingWithEmptyIP()" classname="csx55.overlay.wireformats.TaskCompleteTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

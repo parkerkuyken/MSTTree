@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="csx55.overlay.wireformats.DeregisterTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-09-06T20:58:41" hostname="eel" time="0.004">
+<testsuite name="csx55.overlay.wireformats.DeregisterTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-09-06T22:45:59" hostname="eel" time="0.017">
   <properties/>
-  <testcase name="testMarshallingAndUnmarshallingWithLongIP()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
-  <testcase name="testInvalidData()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
-  <testcase name="testToString()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
+  <testcase name="testMarshallingAndUnmarshallingWithLongIP()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.01"/>
+  <testcase name="testInvalidData()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
+  <testcase name="testToString()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.002"/>
   <testcase name="testConstructorAndGetters()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
   <testcase name="testDataIntegrity()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
   <testcase name="testMultipleSerializationRounds()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
   <testcase name="testMarshallingAndUnmarshalling()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
-  <testcase name="testMarshallingAndUnmarshallingWithLocalhost()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
+  <testcase name="testMarshallingAndUnmarshallingWithLocalhost()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
   <testcase name="testMarshallingAndUnmarshallingWithDifferentIP()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
-  <testcase name="testMarshallingAndUnmarshallingWithEmptyIP()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.001"/>
+  <testcase name="testMarshallingAndUnmarshallingWithEmptyIP()" classname="csx55.overlay.wireformats.DeregisterTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

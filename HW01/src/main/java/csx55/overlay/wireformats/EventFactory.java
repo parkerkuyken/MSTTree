@@ -17,7 +17,7 @@ public class EventFactory {
                 return new Register(data);
                 
             case Protocol.REGISTER_RESPONSE:
-                return new Register(data); // Assuming Register handles both request/response
+                return new Register(data); 
                 
             case Protocol.DEREGISTER_REQUEST:
                 return new Deregister(data);
@@ -33,12 +33,15 @@ public class EventFactory {
                 
             case Protocol.TASK_COMPLETE:
                 return new TaskComplete(data);
+
+            case Protocol.OVERLAY_MESSAGE:
+                return new OverlayMessage(data);
                 
-            // case Protocol.PULL_TRAFFIC_SUMMARY:
-            //     return new TaskSummaryRequest(data); // Assuming this is PULL_TRAFFIC_SUMMARY
+            case Protocol.PULL_TRAFFIC_SUMMARY:
+                return new TaskSummaryRequest(data); 
                 
-            // case Protocol.TRAFFIC_SUMMARY:
-            //     return new TaskSummaryResponse(data); // Assuming this is TRAFFIC_SUMMARY
+            case Protocol.TRAFFIC_SUMMARY:
+                return new TaskSummaryResponse(data); 
                 
             default:
                 throw new IOException("Unknown message type: " + messageType);
