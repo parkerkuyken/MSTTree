@@ -55,6 +55,7 @@ public class MessagingNode implements Node {
             
             System.out.println("Waiting for registration response...");
             
+            //Change this to a while true loop in which accepts an input 
             waitForRegistration(30000);
             
         } catch (Exception e) {

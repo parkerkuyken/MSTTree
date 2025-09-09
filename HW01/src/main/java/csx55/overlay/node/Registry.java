@@ -31,25 +31,6 @@ public class Registry implements Node {
         }
     }
 
-    public class NodeInfo {
-        private String ipAddress;
-        private int portNumber;
-        private Socket socket;
-        
-        public NodeInfo(String ipAddress, int portNumber, Socket socket) {
-            this.ipAddress = ipAddress;
-            this.portNumber = portNumber;
-            this.socket = socket;
-        }
-        
-        public String getKey() {
-            return ipAddress + ":" + portNumber;
-        }
-        
-        public String getIpAddress() { return ipAddress; }
-        public int getPortNumber() { return portNumber; }
-        public Socket getSocket() { return socket; }
-    }
 
     public void start(int port) throws IOException {
         System.out.println("This is it");
@@ -116,25 +97,21 @@ public class Registry implements Node {
         if (!nodeIP.equals(sourceIP)) {
             status = Protocol.FAILURE;
             info = "IP mismatch: Requested " + nodeIP + " but connected from " + sourceIP;
-            System.err.println("Registration failed: " + info);
         } 
 
         else if (nodeRegistry.containsKey(nodeKey)) {
             status = Protocol.FAILURE;
             info = "Node already registered: " + nodeKey;
-            System.err.println("Registration failed: " + info);
         }
         else if (overlaySetup) {
             status = Protocol.FAILURE;
             info = "Overlay already setup, cannot register new nodes";
-            System.err.println("Registration failed: " + info);
         }
 
         else {
             nodeRegistry.put(nodeKey, new NodeInfo(nodeIP, nodeListeningPort, socket));
             status = Protocol.SUCCESS;
             info = "Registration successful. Number of nodes: " + nodeRegistry.size();
-            System.out.println("Registered node: " + nodeKey + " (connected via port " + sourcePort + ")");
         }
     
         sendRegistrationResponse(socket, status, info, nodeListeningPort);
@@ -156,6 +133,8 @@ public class Registry implements Node {
         }
     }
 
+
+    //Do we really need this?
     private void startMessageProcessor() {
         registryProcessorThread = new Thread(() -> {
             while (running) {
@@ -187,6 +166,7 @@ public class Registry implements Node {
             Thread.currentThread().interrupt();
         }
     }
+    
 
     public void listMessagingNodes() {
         System.out.println("Registered messaging nodes:");
