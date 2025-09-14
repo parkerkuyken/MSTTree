@@ -14,8 +14,8 @@ public class Deregister implements Event {
     private String ipAddress;
     private int portNumber;
 
-    public Deregister(int messageType, String ipAddress, int portNumber) {
-        this.messageType = messageType;
+    public Deregister(String ipAddress, int portNumber) {
+        this.messageType = Protocol.DEREGISTER_REQUEST;
         this.ipAddress = ipAddress;
         this.portNumber = portNumber;
     }
@@ -29,7 +29,6 @@ public class Deregister implements Event {
         try {
             dout.writeInt(messageType);
             
-            // Write IP address
             byte[] ipBytes = ipAddress.getBytes();
             dout.writeInt(ipBytes.length);
             dout.write(ipBytes);

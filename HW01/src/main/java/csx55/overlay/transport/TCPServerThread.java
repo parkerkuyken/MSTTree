@@ -3,11 +3,11 @@ package csx55.overlay.transport;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import csx55.overlay.node.Node; // For registry or messaging node
+import csx55.overlay.node.Node; 
 
 public class TCPServerThread extends Thread {
     private ServerSocket serverSocket;
-    private Node node; // Can be Registry or MessagingNode
+    private Node node; 
     private boolean running;
     
     public TCPServerThread(int port, Node node) throws IOException {
@@ -16,23 +16,14 @@ public class TCPServerThread extends Thread {
         this.running = true;
     }
     
-    // Constructor for messaging nodes (auto-assign port)
-    public TCPServerThread(int port) throws IOException {
-        this.serverSocket = new ServerSocket(port);
-        this.running = true;
-        this.node = null; // Messaging nodes might not need node reference
-    }
     
     @Override
     public void run() {
-        System.out.println("TCPServerThread listening on port: " + serverSocket.getLocalPort());
-        
         while (running) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("New connection from: " + 
-                    clientSocket.getInetAddress().getHostAddress());
                 
+                //START RECEIVER THREAD FOR EACH CONNECTION
                 TCPReceiverThread receiverThread = new TCPReceiverThread(clientSocket, node);
                 receiverThread.start();
                 
@@ -44,10 +35,17 @@ public class TCPServerThread extends Thread {
         }
     }
     
+
+    /**
+     * @return int Port number
+     */
     public int getLocalPort() {
         return serverSocket.getLocalPort();
     }
     
+    /**
+     * Stop the server thread and close the server socket
+     */
     public void stopServer() {
         running = false;
         try {

@@ -8,6 +8,7 @@ public class EventFactory {
     
     private EventFactory() {}
     
+    //Singleton method to get the instance
     public static synchronized EventFactory getInstance() {
         if (instance == null) {
             instance = new EventFactory();
@@ -16,10 +17,6 @@ public class EventFactory {
     }
     
     public static Event createEvent(byte[] data) throws IOException {
-        if (data == null || data.length < 4) {
-            throw new IOException("Invalid message data: null or too short");
-        }
-        
         int messageType = java.nio.ByteBuffer.wrap(data, 0, 4).getInt();
         
         switch (messageType) {
@@ -32,8 +29,8 @@ public class EventFactory {
             // case Protocol.DEREGISTER_REQUEST:
             //     return new Deregister(data);
                 
-            // case Protocol.MESSAGING_NODES_LIST:
-            //     return new MessagingNodesList(data);
+            case Protocol.MESSAGING_NODES_LIST:
+                return new MessagingNodesList(data);
                 
             // case Protocol.LINK_WEIGHTS:
             //     return new LinkWeights(data);
@@ -54,7 +51,7 @@ public class EventFactory {
             //     return new TaskSummaryResponse(data); 
                 
             default:
-                throw new IOException("Unknown message type: " + messageType);
+                throw new IOException("EVENT FACTORY : Unknown message type: " + messageType);
         }
     }
 }

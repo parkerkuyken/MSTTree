@@ -11,8 +11,8 @@ public class Register implements Event {
     private int messageType;  
     private String ipAddress;
     private int portNumber;
-    private byte statusCode;  //response only
-    private String additionalInfo;  //response only
+    private byte statusCode;  
+    private String additionalInfo;  
     
     //REGISTER REQUEST
     public Register(String ipAddress, int portNumber) {
@@ -28,11 +28,11 @@ public class Register implements Event {
         this.additionalInfo = additionalInfo;
     }
     
-   
+    // Unmarshall, makes byte array readable
     public Register(byte[] data) throws IOException {
         unmarshallBytes(data);
     }
-    
+  
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
@@ -61,7 +61,8 @@ public class Register implements Event {
         
         return data;
     }
-    
+
+   
     private void unmarshallBytes(byte[] data) throws IOException {
         ByteArrayInputStream baInputStream = new ByteArrayInputStream(data);
         DataInputStream din = new DataInputStream(baInputStream);

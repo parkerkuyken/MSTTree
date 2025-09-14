@@ -1,7 +1,6 @@
 package csx55.overlay.transport;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.DataInputStream;
 import java.net.Socket;
 import csx55.overlay.node.Node;
@@ -22,35 +21,32 @@ public class TCPReceiverThread extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("TCPReceiverThread started for: " + 
-                socket.getInetAddress().getHostAddress());
-            
             while (!socket.isClosed()) {
                 
                 int messageLength = dataIn.readInt();
-                
-                // Read the actual message data
                 byte[] messageData = new byte[messageLength];
                 dataIn.readFully(messageData);
-                System.out.println("Hello got a message over here");
                 processMessage(messageData);
             }
-            
         } catch (IOException e) {
-            System.out.println("Connection closed by client: " + 
-                socket.getInetAddress().getHostAddress() + " - " + e.getMessage());
+            System.out.println("Connection closed by client: " + socket.getInetAddress().getHostAddress());
         } finally {
             closeConnection();
         }
     }
     
+    /**
+     * Process the received message and notify the node
+     * @param data (raw byte array)
+     */
     private void processMessage(byte[] data) {
         try {
-            Event event = EventFactory.getInstance().createEvent(data);
-            System.out.println("Processing message");
+            EventFactory.getInstance();
+            Event event = EventFactory.createEvent(data);
+            
             if (node != null) {
-                // CRITICAL: You must pass the socket to onEvent!
-                node.onEvent(event, socket); // ← ADD THIS SOCKET PARAMETER
+
+                node.onEvent(event, socket);
             }
             
         } catch (Exception e) {
@@ -58,10 +54,10 @@ public class TCPReceiverThread extends Thread {
         }
     }
     
-    public Socket getSocket() {
-        return socket;
-    }
-    
+
+    /**
+     * Close the socket and associated streams
+     */
     private void closeConnection() {
         try {
             if (dataIn != null) {
@@ -73,5 +69,14 @@ public class TCPReceiverThread extends Thread {
         } catch (IOException e) {
             System.err.println("Error closing connection: " + e.getMessage());
         }
+    }
+
+    
+
+    /**
+     * @return Socket object
+     */
+    public Socket getSocket() {
+        return socket;
     }
 }
